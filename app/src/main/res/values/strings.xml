@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Geocurr</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_currencies">CurrenciesActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="show_currency_list">Show Currencies</string>
+
+</resources>
