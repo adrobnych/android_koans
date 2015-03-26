@@ -26,7 +26,8 @@ public class LoadCurrenciesService extends IntentService {
         result = ch.getAllCurrencies();
         try {
             cm.updateCurrenciesWithXMLString(result);
-            cm.setCache(cm.getAllCurrencies());
+            cm.getCache().clear();
+            cm.getCache().addAll(cm.getAllCurrencies());
         } catch (SQLException e) {
             e.printStackTrace();
         }

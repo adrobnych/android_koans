@@ -33,26 +33,7 @@ public class CurrenciesActivity extends ActionBarActivity {
     private String[] stateArr = {"list", "note"};
 
 
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Bundle bundle = intent.getExtras();
-            if (bundle != null) {
-                String result = bundle.getString(LoadCurrenciesService.RESULT);
-                if (result != null) {
-                    Toast.makeText(CurrenciesActivity.this,
-                            "Download complete",
-                            Toast.LENGTH_LONG).show();
-                    //((FragmentCurremciesList)getAllFragments().get("list")).getListView().setAdapter(new CurrencyAdapter(getApplicationContext(), cm.getCache()));
-                    //((FragmentCurremciesList)getAllFragments().get("list")).getListView().deferNotifyDataSetChanged();
-                } else {
-                    Toast.makeText(CurrenciesActivity.this, "Download failed",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +54,13 @@ public class CurrenciesActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(receiver, new IntentFilter(LoadCurrenciesService.NOTIFICATION));
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(receiver);
+
     }
 
 
