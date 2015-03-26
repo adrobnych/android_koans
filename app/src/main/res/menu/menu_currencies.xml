@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.adrobnych.geocurr.ui.CurrenciesActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_update_currencies"
+    <item android:id="@+id/action_update" android:title="@string/action_update_currencies"
         android:orderInCategory="100" app:showAsAction="always" />
 </menu>

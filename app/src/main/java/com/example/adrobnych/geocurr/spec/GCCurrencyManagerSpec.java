@@ -58,9 +58,13 @@ public class GCCurrencyManagerSpec {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        cm.setCurrencyHTTPHelper(new GCCurrencyHTTPHelper());
 
     }
+
+//    @BeforeClass
+//    public static void setUpHTTPLayer() throws SQLException {
+//        cm.setCurrencyHTTPHelper(new GCCurrencyHTTPHelper());
+//    }
 
 
     @Before

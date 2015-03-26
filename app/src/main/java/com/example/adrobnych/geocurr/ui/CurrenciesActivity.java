@@ -51,10 +51,6 @@ public class CurrenciesActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         registerReceiver(receiver, new IntentFilter(LoadCurrenciesService.NOTIFICATION));
-        Intent intent = new Intent(this, LoadCurrenciesService.class);
-        // add infos for the service which file to download and where to store
-        startService(intent);
-        textView.setText("Service started");
     }
 
     @Override
@@ -79,7 +75,10 @@ public class CurrenciesActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_update) {
+            Intent intent = new Intent(this, LoadCurrenciesService.class);
+            startService(intent);
+            textView.setText("Service started");
             return true;
         }
 
