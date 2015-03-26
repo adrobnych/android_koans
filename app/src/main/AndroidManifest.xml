@@ -38,6 +38,11 @@
             android:name=".ui.CurrenciesActivity"
             android:label="@string/title_activity_currencies" >
         </activity>
+
+        <service
+            android:name=".services.LoadCurrenciesService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

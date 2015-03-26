@@ -23,6 +23,16 @@ import javax.xml.parsers.ParserConfigurationException;
 public class GCCurrencyManager {
     private Dao<GCCurrency, String> currencyDao = null;
 
+    public GCCurrencyHTTPHelper getCurrencyHTTPHelper() {
+        return ch;
+    }
+
+    public void setCurrencyHTTPHelper(GCCurrencyHTTPHelper ch) {
+        this.ch = ch;
+    }
+
+    private GCCurrencyHTTPHelper ch = null;
+
     public Dao<GCCurrency, String> getCurrencyDao() {
         return currencyDao;
     }
@@ -76,4 +86,6 @@ public class GCCurrencyManager {
     public GCCurrency getCurrencyById(String code) throws SQLException {
         return currencyDao.queryForId(code);
     }
+
+
 }

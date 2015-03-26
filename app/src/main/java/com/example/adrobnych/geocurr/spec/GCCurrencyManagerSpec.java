@@ -1,6 +1,7 @@
 package com.example.adrobnych.geocurr.spec;
 
 import com.example.adrobnych.geocurr.model.entities.GCCurrency;
+import com.example.adrobnych.geocurr.model.managers.GCCurrencyHTTPHelper;
 import com.example.adrobnych.geocurr.model.managers.GCCurrencyManager;
 import com.example.adrobnych.geocurr.spec.db.TestDbHelper;
 import com.j256.ormlite.dao.Dao;
@@ -57,6 +58,7 @@ public class GCCurrencyManagerSpec {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        cm.setCurrencyHTTPHelper(new GCCurrencyHTTPHelper());
 
     }
 
@@ -81,4 +83,10 @@ public class GCCurrencyManagerSpec {
         assertEquals("Afghani", cm.getCurrencyById("AFN").getName());
         assertEquals("Lek", cm.getCurrencyById("ALL").getName());
     }
+
+//    @Test
+//    public void itShouldLoadXMLDataFromNetwork(){
+//        String result = cm.getCurrencyHTTPHelper().getAllCurrencies();
+//        assertTrue(result.contains("Euro"));
+//    }
 }
