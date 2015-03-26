@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,17 +14,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.example.adrobnych.geocurr.GCApp;
 import com.example.adrobnych.geocurr.R;
 import com.example.adrobnych.geocurr.adapters.CurrencyAdapter;
+import com.example.adrobnych.geocurr.adapters.CurrencyPagerAdapter;
 import com.example.adrobnych.geocurr.model.managers.GCCurrencyHTTPHelper;
 import com.example.adrobnych.geocurr.model.managers.GCCurrencyManager;
 import com.example.adrobnych.geocurr.services.LoadCurrenciesService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class CurrenciesActivity extends ActionBarActivity {
-    private ListView listView;
+
     private GCCurrencyManager cm;
+    private String[] stateArr = {"list", "note"};
+
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
 
         @Override
@@ -34,8 +44,8 @@ public class CurrenciesActivity extends ActionBarActivity {
                     Toast.makeText(CurrenciesActivity.this,
                             "Download complete",
                             Toast.LENGTH_LONG).show();
-                    listView.setAdapter(new CurrencyAdapter(getApplicationContext(), cm.getCache()));
-                    listView.deferNotifyDataSetChanged();
+                    //((FragmentCurremciesList)getAllFragments().get("list")).getListView().setAdapter(new CurrencyAdapter(getApplicationContext(), cm.getCache()));
+                    //((FragmentCurremciesList)getAllFragments().get("list")).getListView().deferNotifyDataSetChanged();
                 } else {
                     Toast.makeText(CurrenciesActivity.this, "Download failed",
                             Toast.LENGTH_LONG).show();
@@ -48,9 +58,15 @@ public class CurrenciesActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currencies);
-        cm = ((GCApp)getApplication()).getCurrencyManager();
-        listView = (ListView) findViewById(R.id.list_of_currencies);
-        listView.setAdapter(new CurrencyAdapter(this, cm.getCache()));
+        cm = ((GCApp) getApplication()).getCurrencyManager();
+
+
+
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new CurrencyPagerAdapter(getSupportFragmentManager(), stateArr, getAllFragments()));
+
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabs.setViewPager(pager);
 
     }
 
@@ -89,5 +105,14 @@ public class CurrenciesActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Map<String, Fragment> getAllFragments() {
+        Map<String, Fragment> fragmentMap = new HashMap<String, Fragment>();
+        fragmentMap.put(stateArr[0], new FragmentCurremciesList());
+        fragmentMap.put(stateArr[1], new FragmentCurrencyNote());
+
+        return fragmentMap;
+
     }
 }

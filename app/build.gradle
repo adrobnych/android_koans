@@ -28,6 +28,7 @@ dependencies {
     compile 'junit:junit:4.+'
     compile 'org.xerial:sqlite-jdbc:3.7.2'
     compile 'commons-io:commons-io:2.4'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     testCompile 'org.apache.httpcomponents:httpclient:4.4'
     //testCompile 'org.apache.httpcomponents:httpcore:4.4'
     //testCompile 'commons-logging:commons-logging:1.1.1'
