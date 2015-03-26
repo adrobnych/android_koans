@@ -1,5 +1,7 @@
 package com.example.adrobnych.geocurr.model.managers;
 
+import android.util.Log;
+
 import com.example.adrobnych.geocurr.model.entities.GCCurrency;
 import com.j256.ormlite.dao.Dao;
 
@@ -21,6 +23,8 @@ import javax.xml.parsers.ParserConfigurationException;
  * Created by adrobnych on 3/25/15.
  */
 public class GCCurrencyManager {
+    private final String TAG = "curManager";
+
     private Dao<GCCurrency, String> currencyDao = null;
 
     public GCCurrencyHTTPHelper getCurrencyHTTPHelper() {
@@ -59,13 +63,20 @@ public class GCCurrencyManager {
             final NodeList list = doc.getElementsByTagName("CcyNtry");
 
             currencyDao.callBatchTasks(new Callable<Void>() {
-                public Void call() throws Exception {
+                public Void call()  {
                     for (int i = 0; i < list.getLength(); i++) {
                         String country = list.item(i).getChildNodes().item(1).getTextContent();
                         String name = list.item(i).getChildNodes().item(3).getTextContent();
-                        String code = list.item(i).getChildNodes().item(5).getTextContent();
+                        String code = "NA";
+                        if(list.item(i).getChildNodes().item(5) != null)
+                            code = list.item(i).getChildNodes().item(5).getTextContent();
                         GCCurrency c = new GCCurrency(code, name, country, false);
-                        currencyDao.create(c);
+                        try {
+                            currencyDao.create(c);
+                        }
+                        catch(Exception e){
+                            Log.d(TAG, "country problem: "+ country);
+                        }
                     }
                     return null;
                 }

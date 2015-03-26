@@ -6,11 +6,11 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "currencies")
 public class GCCurrency {
     @DatabaseField(id = true)
+    private String country;
+    @DatabaseField(columnName = "code", canBeNull = false)
     private String code;
     @DatabaseField(columnName = "name", canBeNull = false, index = true, indexName = "name_index")
     private String name;
-    @DatabaseField(columnName = "course", canBeNull = false)
-    private String country;
     @DatabaseField(columnName = "collected", indexName = "collected_flag_index")
     private boolean collected;
 

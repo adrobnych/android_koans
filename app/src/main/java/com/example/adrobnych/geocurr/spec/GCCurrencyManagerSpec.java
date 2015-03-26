@@ -84,9 +84,10 @@ public class GCCurrencyManagerSpec {
         cm.updateCurrenciesWithXMLString(xmlResponse);
 
 
-        assertEquals("Afghani", cm.getCurrencyById("AFN").getName());
-        assertEquals("Lek", cm.getCurrencyById("ALL").getName());
+        assertEquals("Afghani", cm.getCurrencyById("AFGHANISTAN").getName());
+        assertEquals("Lek", cm.getCurrencyById("ALBANIA").getName());
     }
+
 
 //    @Test
 //    public void itShouldLoadXMLDataFromNetwork(){
