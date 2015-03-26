@@ -16,7 +16,7 @@ import java.sql.SQLException;
  * Created by adrobnych on 3/26/15.
  */
 public class GCApp extends Application {
-    private static final String TAG = "com.droidbrew.travelcheap.TravelApp";
+    private static final String TAG = "GCApp";
     private volatile GCCurrencyManager currencyManager = null;
     private GCDBHelper dbHelper = null;
 
@@ -30,7 +30,7 @@ public class GCApp extends Application {
         try {
             dbHelper = new GCDBHelper(this);
         } catch (SQLException e) {
-            Log.e(TAG, "getDBHelper", e);
+            Log.e(TAG, "getDBHelper"+e);
         }
     }
 
@@ -46,7 +46,7 @@ public class GCApp extends Application {
                         currencyManager.setCurrencyDao(currencyDao);
                         currencyManager.setCurrencyHTTPHelper(new GCCurrencyHTTPHelper());
                     } catch (SQLException e) {
-                        Log.e(TAG, "getExpenseManager", e);
+                        Log.e(TAG, "getExpenseManager"+ e);
                     }
                 }
 

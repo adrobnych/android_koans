@@ -8,16 +8,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.adrobnych.geocurr.GCApp;
 import com.example.adrobnych.geocurr.R;
+import com.example.adrobnych.geocurr.adapters.CurrencyAdapter;
 import com.example.adrobnych.geocurr.model.managers.GCCurrencyHTTPHelper;
+import com.example.adrobnych.geocurr.model.managers.GCCurrencyManager;
 import com.example.adrobnych.geocurr.services.LoadCurrenciesService;
 
 
 public class CurrenciesActivity extends ActionBarActivity {
-    private TextView textView;
+    private ListView listView;
+    private GCCurrencyManager cm;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
 
         @Override
@@ -29,11 +34,11 @@ public class CurrenciesActivity extends ActionBarActivity {
                     Toast.makeText(CurrenciesActivity.this,
                             "Download complete",
                             Toast.LENGTH_LONG).show();
-                    textView.setText(result);
+                    listView.setAdapter(new CurrencyAdapter(getApplicationContext(), cm.getCache()));
+                    listView.deferNotifyDataSetChanged();
                 } else {
                     Toast.makeText(CurrenciesActivity.this, "Download failed",
                             Toast.LENGTH_LONG).show();
-                    textView.setText("Download failed");
                 }
             }
         }
@@ -43,7 +48,9 @@ public class CurrenciesActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currencies);
-        textView = (TextView) findViewById(R.id.tv1);
+        cm = ((GCApp)getApplication()).getCurrencyManager();
+        listView = (ListView) findViewById(R.id.list_of_currencies);
+        listView.setAdapter(new CurrencyAdapter(this, cm.getCache()));
 
     }
 
@@ -78,7 +85,6 @@ public class CurrenciesActivity extends ActionBarActivity {
         if (id == R.id.action_update) {
             Intent intent = new Intent(this, LoadCurrenciesService.class);
             startService(intent);
-            textView.setText("Service started");
             return true;
         }
 

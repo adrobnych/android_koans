@@ -12,6 +12,7 @@ import com.j256.ormlite.table.TableUtils;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -86,6 +87,17 @@ public class GCCurrencyManagerSpec {
 
         assertEquals("Afghani", cm.getCurrencyById("AFGHANISTAN").getName());
         assertEquals("Lek", cm.getCurrencyById("ALBANIA").getName());
+    }
+
+    @Test
+    public void itShouldGetAllCurrenciesFromDb() throws SQLException {
+        //empty table case
+
+        cm.updateCurrenciesWithXMLString(xmlResponse);
+        List<GCCurrency> currencies = cm.getAllCurrencies();
+
+
+        assertEquals(2, currencies.size());
     }
 
 

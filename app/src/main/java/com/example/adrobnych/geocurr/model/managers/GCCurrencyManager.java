@@ -13,6 +13,8 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -36,6 +38,20 @@ public class GCCurrencyManager {
     }
 
     private GCCurrencyHTTPHelper ch = null;
+
+    public List<GCCurrency> getCache() {
+        return cache;
+    }
+
+    public void setCache(List<GCCurrency> cache) {
+        this.cache = cache;
+    }
+
+    private List<GCCurrency> cache = null;
+
+    public GCCurrencyManager() {
+        cache = new LinkedList<>();
+    }
 
     public Dao<GCCurrency, String> getCurrencyDao() {
         return currencyDao;
@@ -99,4 +115,7 @@ public class GCCurrencyManager {
     }
 
 
+    public List<GCCurrency> getAllCurrencies() throws SQLException {
+        return currencyDao.queryForAll();
+    }
 }
